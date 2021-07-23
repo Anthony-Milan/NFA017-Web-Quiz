@@ -97,20 +97,21 @@
 
                 $insert_query = "INSERT INTO question(enonce, niveau, idlangage, idadmin) VALUES ('$question', $difficulty, $id_language, $admin_id)";
                 $update_query = "UPDATE question SET enonce = '$question', niveau = $difficulty, idlangage = $id_language, idadmin = $admin_id WHERE noquestion = $question_id";
-                
+                $res_all_questions_temp = null;
+                $row_all_question = null;
                 // if edited update the row ...
                 if($edited && $question_id) {
                     $res_update_query = mysqli_query($db, $update_query) or die( mysqli_error($db));
 
                     if(!$res_update_query) {
-                        echo $something_wrong_string;
+                        echo $something_wrong_string ;
                     }
                 }else{
                     // else insert the row
                     $res_insert_query = mysqli_query($db , $insert_query) or die( mysqli_error($db));
 
                     if(!$res_insert_query) {
-                        echo $something_wrong_string;
+                        echo $something_wrong_string ;
                         return;
                     }
 
@@ -137,9 +138,7 @@
                 $correct_4 = $rightAnswer == 4 ? 1 : 0;
                 $correct_5 = $rightAnswer == 5 ? 1 : 0;
 
-                if(notEmpty($rightAnswer) && mysqli_num_rows($res_all_questions_temp) > 0) {
-                    
-
+                if(notEmpty($rightAnswer)) {
                     $get_all_reponse = "SELECT * FROM reponse WHERE noquestion = $question_id ORDER BY noreponse ASC";
                     $res_get_all_reponse = mysqli_query($db , $get_all_reponse) or die( mysqli_error($db));
 
@@ -156,7 +155,7 @@
                             $update_answer = "UPDATE reponse SET texte = '$firstAnswer', correct = $correct, noquestion = $question_id WHERE noreponse = $no_reponse";
                             $res_update_answer = mysqli_query($db , $update_answer) or die( mysqli_error($db));
                             if(!$res_update_answer) {
-                                echo $something_wrong_string;
+                                echo $something_wrong_string ;
                                 return;
                             }
                         }else{
@@ -164,7 +163,7 @@
                             $insert_answer = "INSERT INTO reponse(texte, correct, noquestion) VALUES ('$firstAnswer', $correct, $question_id)";
                             $res_answers = mysqli_query($db , $insert_answer) or die( mysqli_error($db));
                             if(!$res_answers) {
-                                echo $something_wrong_string;
+                                echo $something_wrong_string ;
                                 return;
                             }
                         }
@@ -176,7 +175,7 @@
                             $update_answer_2 = "UPDATE reponse SET texte = '$secondAnswer', correct = $correct_2, noquestion = $question_id WHERE noreponse = $no_reponse_2";
                             $res_update_answer_2 = mysqli_query($db , $update_answer_2) or die( mysqli_error($db));
                             if(!$res_update_answer_2) {
-                                echo $something_wrong_string;
+                                echo $something_wrong_string ;
                                 return;
                             }
                         } else {
@@ -184,7 +183,7 @@
                             $insert_answer_2 = "INSERT INTO reponse(texte, correct, noquestion) VALUES ('$secondAnswer', $correct_2, $question_id)";
                             $res_answers_2 = mysqli_query($db , $insert_answer_2) or die( mysqli_error($db));
                             if(!$res_answers_2) {
-                                echo $something_wrong_string;
+                                echo $something_wrong_string ;
                                 return;
                             }
                         }
@@ -196,7 +195,7 @@
                             $update_answer_3 = "UPDATE reponse SET texte = '$thirdAnswer', correct = $correct_3, noquestion = $question_id WHERE noreponse = $no_reponse_3 ";
                             $res_update_answer_3 = mysqli_query($db , $update_answer_3) or die( mysqli_error($db));
                             if(!$res_update_answer_3) {
-                                echo $something_wrong_string;
+                                echo $something_wrong_string ;
                                 return;
                             }
                         } else {
@@ -204,7 +203,7 @@
                             $insert_answer_3 = "INSERT INTO reponse(texte, correct, noquestion) VALUES ('$thirdAnswer', $correct_3, $question_id)";
                             $res_answers_3 = mysqli_query($db , $insert_answer_3) or die( mysqli_error($db));
                             if(!$res_answers_3) {
-                                echo $something_wrong_string;
+                                echo $something_wrong_string ;
                                 return;
                             }
                         }
@@ -216,7 +215,7 @@
                             $update_answer_4 = "UPDATE reponse SET texte = '$fourthAnswer', correct = $correct_4, noquestion = $question_id WHERE noreponse = $no_reponse_4 ";
                             $res_update_answer_4 = mysqli_query($db , $update_answer_4) or die( mysqli_error($db));
                             if(!$res_update_answer_4) {
-                                echo $something_wrong_string;
+                                echo $something_wrong_string ;
                                 return;
                             }
                         } else {
@@ -224,7 +223,7 @@
                             $insert_answer_4 = "INSERT INTO reponse(texte, correct, noquestion) VALUES ('$fourthAnswer', $correct_4, $question_id)";
                             $res_answers_4 = mysqli_query($db , $insert_answer_4) or die( mysqli_error($db));
                             if(!$res_answers_4) {
-                                echo $something_wrong_string;
+                                echo $something_wrong_string ;
                                 return;
                             }
                         }
@@ -243,7 +242,7 @@
                             $update_answer_5 = "UPDATE reponse SET texte = '$fifthAnswer', correct = $correct_5, noquestion = $question_id WHERE noreponse = $no_reponse_5 ";
                             $res_update_answer_5 = mysqli_query($db , $update_answer_5) or die( mysqli_error($db));
                             if(!$res_update_answer_5) {
-                                echo $something_wrong_string;
+                                echo $something_wrong_string ;
                                 return;
                             }
                         } else {
@@ -251,7 +250,7 @@
                             $insert_answer_5 = "INSERT INTO reponse(texte, correct, noquestion) VALUES ('$fifthAnswer', $correct_5, $question_id)";
                             $res_answers_5 = mysqli_query($db , $insert_answer_5) or die( mysqli_error($db));
                             if(!$res_answers_5) {
-                                echo $something_wrong_string;
+                                echo $something_wrong_string ;
                                 return;
                             }
                         }
@@ -268,7 +267,7 @@
                     echo "<script>alert('Form submitted successfully');window.location.href = '../QuestionsList/questionList.php';</script>";
                 } else {
                     // error
-                    echo $something_wrong_string;
+                    echo $something_wrong_string ;
                 }
             } else {
                 // not logged in as admin or cookie expired
